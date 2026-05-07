@@ -1,62 +1,204 @@
 .landingPageContainer {
-  width: 100vw;
-  height: 100vh;
-  background: url("/background.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: white;
+  width: 100%;
+  min-height: 100vh;
+  color: #f4f2ff;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(76, 201, 240, 0.22), transparent 30%),
+    radial-gradient(circle at 80% 30%, rgba(255, 146, 94, 0.22), transparent 30%),
+    linear-gradient(135deg, #131120 0%, #1a1f38 45%, #0f172a 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+.landingPageContainer::before,
+.landingPageContainer::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.landingPageContainer::before {
+  width: 360px;
+  height: 360px;
+  top: -110px;
+  right: -80px;
+  background: rgba(129, 140, 248, 0.22);
+}
+
+.landingPageContainer::after {
+  width: 320px;
+  height: 320px;
+  bottom: -110px;
+  left: -70px;
+  background: rgba(56, 189, 248, 0.2);
 }
 
 .landingPageContainer nav {
-  padding-inline: 1.2rem;
-  padding-block: 1.6rem;
+  width: min(1160px, 92%);
+  margin: 0 auto;
+  padding: 1.4rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  position: relative;
+  z-index: 2;
 }
 
-.landingPageContainer nav h2 {
-  font-size: 1.8rem;
-  font-weight: 500;
+.navHeader h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
 }
 
 .landingPageContainer nav .navlist {
   display: flex;
-  gap: 1.6rem;
-  cursor: pointer;
+  align-items: center;
+  gap: 0.8rem;
+}
 
+.navAction {
+  border: none;
+  background: transparent;
+  color: #e9ecff;
+  font-size: 0.98rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.navAction:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.navActionPrimary {
+  background: linear-gradient(120deg, #38bdf8, #f97316);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(56, 189, 248, 0.22);
+}
+
+.navActionPrimary:hover {
+  background: linear-gradient(120deg, #0ea5e9, #ea580c);
 }
 
 .landingMainContainer {
+  width: min(1160px, 92%);
+  margin: 0 auto;
+  min-height: calc(100vh - 92px);
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 2rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.heroText h1 {
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1.06;
+  margin-bottom: 0.95rem;
+}
+
+.heroHighlight {
+  color: #67e8f9;
+}
+
+.heroText p {
+  color: #d8defa;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  max-width: 540px;
+  margin-bottom: 2rem;
+}
+
+.heroButtons {
   display: flex;
-  justify-content: space-between;
-  padding-inline: 3rem;
-  height: 80vh;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.heroCta,
+.heroSecondary {
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.9rem 1.35rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.heroCta {
+  background: linear-gradient(120deg, #f97316, #fb7185);
+  color: #fff;
+  box-shadow: 0 16px 26px rgba(249, 115, 22, 0.25);
+}
+
+.heroSecondary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f8fafc;
+}
+
+.heroCta:hover,
+.heroSecondary:hover {
+  transform: translateY(-2px);
+}
+
+.heroVisual {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.landingMainContainer>div:nth-child(1) {
-  font-size: 2.2rem;
-}
-
-.landingMainContainer>div:nth-child(1) div[role='button'] {
-  background: #D97500;
-  width: fit-content;
+.deviceFrame {
+  width: min(420px, 90%);
+  border-radius: 28px;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   padding: 1rem;
-  border-radius: 20px;
-  margin-top: 1.9rem;
+  box-shadow: 0 24px 44px rgba(7, 10, 25, 0.45);
+  animation: floatUp 3.6s ease-in-out infinite;
 }
 
-.landingMainContainer>div:nth-child(1) div[role='button'] a {
-  text-decoration: none;
-  color: white;
-  font-size: 1.7rem;
+.deviceFrame img {
+  width: 100%;
+  display: block;
+  border-radius: 22px;
 }
 
-.landingMainContainer>div:nth-child(2) img {
-  height: 70vh;
-  width: auto;
+@keyframes floatUp {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (max-width: 900px) {
+  .landingMainContainer {
+    grid-template-columns: 1fr;
+    padding: 1.2rem 0 2rem;
+    text-align: center;
+  }
+
+  .heroText p {
+    margin-inline: auto;
+  }
+
+  .heroButtons {
+    justify-content: center;
+  }
+
+  .navAction {
+    padding-inline: 0.75rem;
+  }
 }
 
 .navBar {

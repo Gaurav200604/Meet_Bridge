@@ -1,6 +1,6 @@
 import React from 'react'
 import "../App.css"
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 export default function LandingPage() {
 
 
@@ -13,36 +13,27 @@ export default function LandingPage() {
                     <h2>Apna Video Call</h2>
                 </div>
                 <div className='navlist'>
-                    <p onClick={() => {
-                        router("/aljk23")
-                    }}>Join as Guest</p>
-                    <p onClick={() => {
-                        router("/auth")
-
-                    }}>Register</p>
-                    <div onClick={() => {
-                        router("/auth")
-
-                    }} role='button'>
-                        <p>Login</p>
-                    </div>
+                    <button className='navAction' onClick={() => router("/aljk23")}>Join as Guest</button>
+                    <button className='navAction' onClick={() => router("/auth")}>Register</button>
+                    <button className='navAction navActionPrimary' onClick={() => router("/auth")}>Login</button>
                 </div>
             </nav>
 
 
             <div className="landingMainContainer">
-                <div>
-                    <h1><span style={{ color: "#FF9839" }}>Connect</span> with your loved Ones</h1>
+                <div className='heroText'>
+                    <h1><span className='heroHighlight'>Connect</span> with your loved ones in real time</h1>
 
-                    <p>Cover a distance by Apna Video Call</p>
-                    <div role='button'>
-                        <Link to={"/auth"}>Get Started</Link>
+                    <p>Fast, reliable meetings with chat, screen sharing, and one-click rejoin from history.</p>
+                    <div className='heroButtons'>
+                        <button className='heroCta' onClick={() => router("/auth")}>Get Started</button>
+                        <button className='heroSecondary' onClick={() => router("/auth")}>Explore Features</button>
                     </div>
                 </div>
-                <div>
-
-                    <img src="/mobile.png" alt="" />
-
+                <div className='heroVisual'>
+                    <div className='deviceFrame'>
+                        <img src="/mobile.png" alt="Video call app preview" />
+                    </div>
                 </div>
             </div>
 

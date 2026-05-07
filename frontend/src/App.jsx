@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Route, BrowserRouter as Router, Routes, Navigate, Outlet } from 'react-router-dom' 
 import './App.css'
 import Landing from './pages/landing.jsx'
@@ -22,8 +21,6 @@ const ProtectedRoute = () => {
 };
 
 function App() {
-    const [count, setCount] = useState(0)
-
     return (
         <>
             <Router>

@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -16,20 +15,26 @@ import VideoCallIcon from '@mui/icons-material/VideoCall';
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#667eea',
+            main: '#0ea5e9',
         },
         secondary: {
-            main: '#764ba2',
+            main: '#f97316',
         },
+        background: {
+            default: '#f8fafc',
+        },
+    },
+    shape: {
+        borderRadius: 14,
     },
 });
 
 export default function Authentication() {
-    const [username, setUsername] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    const [name, setName] = React.useState("");
-    const [error, setError] = React.useState("");
-    const [message, setMessage] = React.useState("");
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [name, setName] = React.useState('');
+    const [error, setError] = React.useState('');
+    const [message, setMessage] = React.useState('');
     const [formState, setFormState] = React.useState(0);
     const [open, setOpen] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
@@ -37,37 +42,34 @@ export default function Authentication() {
     const { handleRegister, handleLogin } = React.useContext(AuthContext);
 
     const handleAuth = async () => {
-        // Validation
         if (!username || !password) {
-            setError("Username and password are required");
+            setError('Username and password are required');
             return;
         }
 
         if (formState === 1 && !name) {
-            setError("Name is required");
+            setError('Name is required');
             return;
         }
 
         setLoading(true);
-        setError("");
+        setError('');
 
         try {
             if (formState === 0) {
-                // Login
                 await handleLogin(username, password);
             } else {
-                // Register
                 const result = await handleRegister(name, username, password);
-                setUsername("");
-                setName("");
-                setPassword("");
-                setMessage(result || "Registration successful!");
+                setUsername('');
+                setName('');
+                setPassword('');
+                setMessage(result || 'Registration successful!');
                 setOpen(true);
                 setFormState(0);
             }
         } catch (err) {
             console.error(err);
-            const errorMessage = err?.response?.data?.message || "An error occurred";
+            const errorMessage = err?.response?.data?.message || 'An error occurred';
             setError(errorMessage);
         } finally {
             setLoading(false);
@@ -83,87 +85,109 @@ export default function Authentication() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Grid container component="main" sx={{ height: '100vh' }}>
-                <CssBaseline />
-                
-                {/* Left Side - Image/Branding */}
-                <Grid
-                    item
-                    xs={false}
-                    sm={4}
-                    md={7}
+            <CssBaseline />
+            <Box
+                sx={{
+                    minHeight: '100vh',
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '1fr', md: '1.1fr 0.9fr' },
+                    background:
+                        'radial-gradient(circle at 10% 10%, rgba(56,189,248,0.15), transparent 28%), radial-gradient(circle at 95% 90%, rgba(249,115,22,0.12), transparent 28%), #f8fafc',
+                }}
+            >
+                <Box
                     sx={{
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        position: 'relative',
+                        display: { xs: 'none', md: 'flex' },
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        px: 8,
+                        py: 6,
+                    }}
+                >
+                    <Paper
+                        elevation={0}
+                        sx={{
+                            p: 5,
+                            borderRadius: 5,
+                            color: 'white',
+                            background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #0ea5e9 100%)',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                        }}
+                    >
+                        <VideoCallIcon sx={{ fontSize: 82, mb: 2, opacity: 0.95 }} />
+                        <Typography variant="h3" fontWeight={800} gutterBottom>
+                            MeetBridge
+                        </Typography>
+                        <Typography variant="h6" sx={{ opacity: 0.92, maxWidth: 520 }}>
+                            Better meetings with smooth video, chat, and activity history in one place.
+                        </Typography>
+                    </Paper>
+                </Box>
+
+                <Box
+                    sx={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        flexDirection: 'column',
-                        color: 'white',
-                        padding: 4,
+                        p: { xs: 2, sm: 3, md: 5 },
                     }}
                 >
-                    <VideoCallIcon sx={{ fontSize: 120, mb: 3, opacity: 0.9 }} />
-                    <Typography variant="h3" fontWeight="bold" gutterBottom>
-                        Welcome to VideoMeet
-                    </Typography>
-                    <Typography variant="h6" sx={{ opacity: 0.9, textAlign: 'center', maxWidth: 500 }}>
-                        Connect with anyone, anywhere. Crystal clear video calls with chat functionality.
-                    </Typography>
-                </Grid>
-
-                {/* Right Side - Form */}
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <Box
+                    <Paper
+                        elevation={0}
                         sx={{
-                            my: 8,
-                            mx: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            minHeight: 'calc(100vh - 64px)',
+                            width: '100%',
+                            maxWidth: 480,
+                            p: { xs: 3, sm: 4 },
+                            borderRadius: 5,
+                            border: '1px solid #e2e8f0',
+                            boxShadow: '0 24px 50px rgba(15, 23, 42, 0.08)',
                         }}
                     >
-                        <Avatar sx={{ 
-                            m: 1, 
-                            bgcolor: 'primary.main',
-                            width: 56,
-                            height: 56
-                        }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-
-                        <Typography component="h1" variant="h5" fontWeight="bold" sx={{ mt: 2 }}>
-                            {formState === 0 ? 'Sign In' : 'Create Account'}
-                        </Typography>
-
-                        {/* Toggle Buttons */}
-                        <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
-                            <Button 
-                                variant={formState === 0 ? "contained" : "outlined"} 
-                                onClick={() => { 
-                                    setFormState(0);
-                                    setError("");
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Avatar
+                                sx={{
+                                    width: 62,
+                                    height: 62,
+                                    mb: 1,
+                                    background: 'linear-gradient(135deg, #0ea5e9, #f97316)',
                                 }}
-                                sx={{ minWidth: 120 }}
+                            >
+                                <LockOutlinedIcon />
+                            </Avatar>
+
+                            <Typography component="h1" variant="h5" fontWeight={800} sx={{ mt: 1 }}>
+                                {formState === 0 ? 'Welcome back' : 'Create your account'}
+                            </Typography>
+
+                            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, mb: 2 }}>
+                                {formState === 0 ? 'Sign in to continue your meetings' : 'Join now and start collaborating'}
+                            </Typography>
+                        </Box>
+
+                        <Box sx={{ mt: 1.5, display: 'flex', gap: 1.2 }}>
+                            <Button
+                                fullWidth
+                                variant={formState === 0 ? 'contained' : 'outlined'}
+                                onClick={() => {
+                                    setFormState(0);
+                                    setError('');
+                                }}
                             >
                                 Sign In
                             </Button>
-                            <Button 
-                                variant={formState === 1 ? "contained" : "outlined"} 
-                                onClick={() => { 
+                            <Button
+                                fullWidth
+                                variant={formState === 1 ? 'contained' : 'outlined'}
+                                onClick={() => {
                                     setFormState(1);
-                                    setError("");
+                                    setError('');
                                 }}
-                                sx={{ minWidth: 120 }}
                             >
                                 Sign Up
                             </Button>
                         </Box>
 
-                        {/* Form */}
-                        <Box component="form" noValidate sx={{ mt: 3, width: '100%' }}>
+                        <Box component="form" noValidate sx={{ mt: 2 }}>
                             {formState === 1 && (
                                 <TextField
                                     margin="normal"
@@ -176,7 +200,7 @@ export default function Authentication() {
                                     autoComplete="name"
                                     autoFocus={formState === 1}
                                     onChange={(e) => setName(e.target.value)}
-                                    onKeyPress={handleKeyPress}
+                                    onKeyDown={handleKeyPress}
                                 />
                             )}
 
@@ -191,7 +215,7 @@ export default function Authentication() {
                                 autoComplete="username"
                                 autoFocus={formState === 0}
                                 onChange={(e) => setUsername(e.target.value)}
-                                onKeyPress={handleKeyPress}
+                                onKeyDown={handleKeyPress}
                             />
 
                             <TextField
@@ -205,7 +229,7 @@ export default function Authentication() {
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={(e) => setPassword(e.target.value)}
-                                onKeyPress={handleKeyPress}
+                                onKeyDown={handleKeyPress}
                             />
 
                             {error && (
@@ -218,13 +242,13 @@ export default function Authentication() {
                                 type="button"
                                 fullWidth
                                 variant="contained"
-                                sx={{ 
-                                    mt: 3, 
-                                    mb: 2,
-                                    py: 1.5,
-                                    fontSize: '1rem',
-                                    fontWeight: 'bold',
-                                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                sx={{
+                                    mt: 3,
+                                    mb: 1,
+                                    py: 1.4,
+                                    fontSize: '0.98rem',
+                                    fontWeight: 700,
+                                    background: 'linear-gradient(120deg, #0ea5e9, #f97316)',
                                 }}
                                 onClick={handleAuth}
                                 disabled={loading}
@@ -232,20 +256,13 @@ export default function Authentication() {
                                 {loading ? (
                                     <CircularProgress size={24} color="inherit" />
                                 ) : (
-                                    formState === 0 ? "Sign In" : "Create Account"
+                                    formState === 0 ? 'Sign In' : 'Create Account'
                                 )}
                             </Button>
-
-                            <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2 }}>
-                                {formState === 0 
-                                    ? "Don't have an account? Click Sign Up above"
-                                    : "Already have an account? Click Sign In above"
-                                }
-                            </Typography>
                         </Box>
-                    </Box>
-                </Grid>
-            </Grid>
+                    </Paper>
+                </Box>
+            </Box>
 
             <Snackbar
                 open={open}
