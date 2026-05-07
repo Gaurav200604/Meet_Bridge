@@ -35,7 +35,7 @@ export default function Home() {
     const [meetingCode, setMeetingCode] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const { addToUserHistory } = useContext(AuthContext);
+    const { addToUserHistory, handleLogout } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const generateMeetingCode = () => {
@@ -86,11 +86,6 @@ export default function Home() {
         } finally {
             setLoading(false);
         }
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        navigate("/auth");
     };
 
     const handleKeyPress = (e) => {

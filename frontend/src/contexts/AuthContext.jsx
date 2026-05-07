@@ -120,7 +120,7 @@
 
 import axios from "axios";
 import httpStatus from "http-status";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext({});
 
@@ -129,21 +129,15 @@ const client = axios.create({
 });
 
 export const AuthProvider = ({ children }) => {
-    // 1. Initial user state: Check for token on component mount
-    const [user, setUser] = useState(null); // Changed userData to user for clarity
+    // 1. Initial user state
     const router = useNavigate();
 
-    // Function to check for token and potentially fetch user data on load
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            // In a real app, you would validate the token with the server
-            // For this example, we assume if the token exists, the user is logged in
-            // until a request fails. We set a placeholder user object.
-            setUser({ token: token, username: 'user' }); 
-            // In a real app: call API to /me or /profile to get actual user data
-        }
-    }, []);
+    // Initialize user synchronously from localStorage to avoid route protection race
+    const tokenFromStorage = localStorage.getItem("token");
+    const [user, setUser] = useState(() => {
+        if (tokenFromStorage) return { token: tokenFromStorage, username: 'user' };
+        return null;
+    });
 
     // Function to log out
     const handleLogout = () => {

@@ -4,6 +4,7 @@ import './App.css'
 import Landing from './pages/landing.jsx'
 import Homecomponet from './pages/home.jsx'
 import Authentication from './pages/authentication.jsx'
+import History from './pages/history.jsx'
 import { AuthProvider, AuthContext } from './contexts/AuthContext.jsx' 
 import VideoMeet from './pages/VideoMeet.jsx'
 import { useContext } from 'react' 
@@ -36,6 +37,7 @@ function App() {
                         <Route element={<ProtectedRoute />}>
                         
                             <Route path='/home' element={<Homecomponet/>}/>
+                            <Route path='/history' element={<History/>}/>
                             <Route path='/:url' element={<VideoMeet/>} />
                         </Route>
 

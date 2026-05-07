@@ -40,7 +40,7 @@ const theme = createTheme({
 });
 
 export default function History() {
-    const { getHistoryOfUser } = useContext(AuthContext);
+    const { getHistoryOfUser, handleLogout } = useContext(AuthContext);
     const [meetings, setMeetings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -140,11 +140,6 @@ export default function History() {
 
     const handleJoinMeeting = (code) => {
         navigate(`/${code}`);
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        navigate("/auth");
     };
 
     return (
