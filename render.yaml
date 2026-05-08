@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: video-backend
+    runtime: node
+    buildCommand: "cd backend && npm install"
+    startCommand: "cd backend && npm start"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    # Add your MongoDB connection string, JWT secret, etc.
+
+  - type: static
+    name: video-frontend
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: "frontend/dist"
