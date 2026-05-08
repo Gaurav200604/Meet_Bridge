@@ -14,9 +14,26 @@ const io = connectToSocket(server);
 const preferredPort = Number(process.env.PORT || 8001);
 let mongoConnected = false;
 
+// CORS configuration with environment variable support
+const allowedOrigins = [
+    // Development
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5174",
+    "http://127.0.0.1:5175",
+];
+
+// Add production frontend URL from environment
+if (process.env.FRONTEND_URL) {
+    allowedOrigins.push(process.env.FRONTEND_URL);
+}
+
 app.use(
     cors({
-        origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:3000", "http://127.0.0.1:5173", "http://127.0.0.1:5174", "http://127.0.0.1:5175"],
+        origin: allowedOrigins,
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     })
