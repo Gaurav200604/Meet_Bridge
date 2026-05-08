@@ -124,8 +124,10 @@ import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext({});
 
+// Use Vite environment variable `VITE_API_URL` in production; fallback to localhost for development
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8001";
 const client = axios.create({
-    baseURL: "http://localhost:8001/api/v1/users",
+    baseURL: `${API_BASE}/api/v1/users`,
 });
 
 export const AuthProvider = ({ children }) => {
