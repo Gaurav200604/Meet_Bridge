@@ -186,6 +186,10 @@ export default function VideoMeet() {
     const connectToSocketServer = () => {
         console.log("🔌 Connecting to socket server...", server_url);
         
+        // Extract meeting code from URL (e.g., /123 → 123)
+        const meetingCode = window.location.pathname.split('/').filter(Boolean).pop() || 'default';
+        console.log("📍 Meeting code:", meetingCode);
+        
         socketRef.current = io(server_url, {
             transports: ['websocket', 'polling']
         });
@@ -194,8 +198,8 @@ export default function VideoMeet() {
             console.log("✅ Socket connected!", socketRef.current.id);
             socketIdRef.current = socketRef.current.id;
 
-            socketRef.current.emit("join-call", window.location.href);
-            console.log("📞 Emitted join-call");
+            socketRef.current.emit("join-call", meetingCode);
+            console.log("📞 Emitted join-call with meeting code:", meetingCode);
 
             socketRef.current.on("signal", gotMessageFromServer);
 
