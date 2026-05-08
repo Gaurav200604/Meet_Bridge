@@ -9,9 +9,14 @@ services:
         value: production
       - key: PORT
         value: 10000
-    # Add your MongoDB connection string, JWT secret, etc.
 
-  - type: static
+  - type: web
     name: video-frontend
+    runtime: node
     buildCommand: "cd frontend && npm install && npm run build"
-    staticPublishPath: "frontend/dist"
+    startCommand: "npm install -g serve && serve -s frontend/dist -l 3000"
+    envVars:
+      - key: VITE_API_URL
+        value: https://video-backend-85pm.onrender.com
+      - key: NODE_ENV
+        value: production
